@@ -14,7 +14,7 @@ mongoose.connect("mongodb://localhost:27017/userDB", { useNewUrlParser: true });
 const loginSchema = new mongoose.Schema({ email: String, password: String });
 
 const secret = "This is my secret to encryption"
-loginSchema.plugin(encrypt,{secret:secret, encryptedFields: ["password"]});
+loginSchema.plugin(encrypt,{secret: secret, encryptedFields: ["password"]});
 
 const userAccount = new mongoose.model("user login", loginSchema);
 
