@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
 const encrypt = require("mongoose-encryption");
+const md5 = require("md5")
+
 
 app.use(
   bodyParser.urlencoded({
@@ -34,7 +36,7 @@ app.get("/register", function (req, res) {
 
 app.post("/register", function (req, res) {
   let username = req.body.username;
-  let password = req.body.password;
+  let password = md5(req.body.password);
   const new_user = new userAccount({
     email: username,
     password: password,
@@ -50,7 +52,7 @@ app.post("/register", function (req, res) {
 
 app.post("/login", function (req, res) {
   let username = req.body.username;
-  let password = req.body.password;
+  let password = md5(req.body.password);
   userAccount.findOne({ email: username }, function (err, accountFound) {
     if (err) {
       console.log(err);
